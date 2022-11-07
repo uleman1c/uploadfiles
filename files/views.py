@@ -82,6 +82,8 @@ def files(request, slug):
             return render(request, '404.html')
             
 def setStrSizeDate(allfiles):
+
+    cnt = 0
     for f in allfiles:
         if f['size'] > 1024 * 1024 * 1024:
             f['size2'] = str(round(f['size'] / (1024 * 1024 * 1024), 1)) + " Gb"
@@ -98,4 +100,11 @@ def setStrSizeDate(allfiles):
         f['size'] = locale.format_string('%.0f', f['size'], grouping=False)
 
         f['created'] = datetime.datetime.strptime(f['created'], "%Y%m%d%H%M%S").strftime("%d.%m.%Y %H:%M:%S")
+
+        if cnt % 2 == 1:
+            f['backgroundcolor'] = 'lightyellow'
+        else:
+            f['backgroundcolor'] = 'white'
+
+        cnt = cnt + 1
 

@@ -12,12 +12,22 @@
     {% csrf_token %}
     <h1>Upload file</h1>
     <button onclick="document.querySelector('.inputFile').click();">Select file ...</button>
-    <input id="inputFile" class="inputFile" onchange="onSelectFile(event)" type="file" style="display: none;">
+    <input id="inputFile" multiple class="inputFile" onchange="onSelectFile(event)" type="file" style="display: none;">
 
 <!--     <h1>{{ resdict.filename }}</h1>
     <button onClick="getFileByParts('{{ resdict.filename }}', '{{ resdict.id }}', '{{ resdict.size }}')">Download</button>
  -->    <h1 id="filesize"></h1>
         <span id="procent"></span>
+
+    <style>
+        th {
+          padding: 10px;
+          background: aliceblue;  
+        }
+        td {
+            padding: 10px;
+        }
+    </style>
 
     <table>
         <tr>
@@ -26,9 +36,9 @@
             <th>Дата создания</th>
         </tr>
         {% for el in elements %}        
-        <tr>
+        <tr style="background-color: {{ el.backgroundcolor }};">
             <td>{{ el.filename }}</td>
-            <td>{{ el.size2 }}</td>
+            <td style="text-align: center;">{{ el.size2 }}</td>
             <td>{{ el.created }}</td>
         </tr>
         {% endfor %}
