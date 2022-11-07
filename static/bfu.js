@@ -13,6 +13,8 @@ var errorCount = 0;
 
 var upload_chunk_size = 120000;
 
+var startTime = 0;
+
 function onLoad() {
 
     numPart = numPart + 1;
@@ -21,7 +23,27 @@ function onLoad() {
 
     var curFile = files[numFile];
 
-    document.querySelector(idEl).innerHTML = curFile.name + ", " + Math.floor(startingByte / 1024) + " Kb, " + Math.floor(startingByte * 100 / curFile.size) + "%, ошибок " + errorCount;
+    var curTime = Date.now() / 1000;
+
+    var delta = curTime - startTime;
+
+    var elapsed = Math.floor((curFile.size - startingByte) / (startingByte / delta) / 60);
+
+    var curDate = new Date();
+    curDate.setMinutes(curDate.getMinutes() + elapsed);
+
+    let formatter = new Intl.DateTimeFormat("ru", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+
+    document.querySelector(idEl).innerHTML = curFile.name + ", " + Math.floor(startingByte / 1024) + " Kb, " 
+        + Math.floor(startingByte * 100 / curFile.size) + "%, ошибок " + errorCount + ", "
+        + elapsed + " m, "+ formatter.format(curDate);
 
     if (startingByte < curFile.size) {
 
@@ -166,6 +188,8 @@ function sendNext() {
         if (startingByte == 0) {
 
             uuid = getFileUid();
+
+            startTime = Date.now() / 1000;
 
         }
 
