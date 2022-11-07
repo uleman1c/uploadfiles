@@ -1,4 +1,6 @@
+import datetime
 import json
+import locale
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse, JsonResponse
 import requests
@@ -69,9 +71,31 @@ def files(request, slug):
 
             resdict = json.loads(res.text)
 
-            return render(request, 'index.html')
+            elements = resdict['files']
+
+            setStrSizeDate(elements)
+
+            return render(request, 'index.html', locals())
 
         except:
 
             return render(request, '404.html')
             
+def setStrSizeDate(allfiles):
+    for f in allfiles:
+        if f['size'] > 1024 * 1024 * 1024:
+            f['size2'] = str(round(f['size'] / (1024 * 1024 * 1024), 1)) + " Gb"
+
+        elif f['size'] > 1024 * 1024:
+            f['size2'] = str(round(f['size'] / (1024 * 1024), 1)) + " Mb"
+
+        elif f['size'] > 1024:
+            f['size2'] = str(round(f['size'] / (1024), 1)) + " Kb"
+
+        else:
+            f['size2'] = str(f['size']) + " b"
+
+        f['size'] = locale.format_string('%.0f', f['size'], grouping=False)
+
+        f['created'] = datetime.datetime.strptime(f['created'], "%Y%m%d%H%M%S").strftime("%d.%m.%Y %H:%M:%S")
+

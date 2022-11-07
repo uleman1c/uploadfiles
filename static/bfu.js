@@ -21,7 +21,7 @@ function onLoad() {
 
     var curFile = files[numFile];
 
-    document.querySelector(idEl).innerHTML = curFile.name + " " + Math.floor(startingByte * 100 / curFile.size) + "%, ошибок " + errorCount;
+    document.querySelector(idEl).innerHTML = curFile.name + ", " + Math.floor(startingByte / 1024) + " Kb, " + Math.floor(startingByte * 100 / curFile.size) + "%, ошибок " + errorCount;
 
     if (startingByte < curFile.size) {
 
@@ -51,13 +51,22 @@ function onError() {
 
 }
 
+function getXMLHttpRequest(){
+
+    if('ActiveXObject' in window){
+        return new ActiveXObject('Msxml2.XMLHTTP');
+     }else{
+        return new XMLHttpRequest();
+     }    
+}
+
 function sendPartOfFile() {
 
     var curFile = files[numFile];
 
     var blob = curFile.slice(startingByte, endindByte);
 
-    var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest(); //new XMLHttpRequest();
 
     var url = "";
     req.open("POST", url, true);
@@ -111,7 +120,7 @@ function getFileUid(){
 
     var curFile = files[numFile];
 
-    var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest(); //new XMLHttpRequest();
 
     var url = "";
     req.open("POST", url, false);
