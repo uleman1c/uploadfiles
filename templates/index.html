@@ -19,10 +19,21 @@
  -->    <h1 id="filesize"></h1>
         <span id="procent"></span>
 
-    {% for el in elements %}
-    <div>
-        <h1>{{ el.filename }}, {{ el.size2 }}, {{ el.created }}</h1>
-    </div>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>Имя файла</th>
+            <th>Размер</th>
+            <th>Дата создания</th>
+        </tr>
+        {% for el in elements %}        
+        <tr>
+            <td>{{ el.filename }}</td>
+            <td>{{ el.size2 }}</td>
+            <td>{{ el.created }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
 </body>
 </html>
