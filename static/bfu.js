@@ -41,7 +41,7 @@ function onLoad() {
         second: "2-digit"
       });
 
-    document.querySelector(idEl).innerHTML = curFile.name + ", " + Math.floor(startingByte / 1024) + " Kb, " 
+    document.querySelector(idEl).innerHTML = curFile.name + ", " + Math.floor(startingByte / 1024).toLocaleString() + " Kb, " 
         + Math.floor(startingByte * 100 / curFile.size) + "%, ошибок " + errorCount 
         + ", осталось " + elapsed + " минут, " + formatter.format(curDate);
 
