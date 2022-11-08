@@ -102,7 +102,7 @@ def setStrSizeDate(allfiles):
         f['created'] = datetime.datetime.strptime(f['created'], "%Y%m%d%H%M%S").strftime("%d.%m.%Y %H:%M:%S")
 
         if cnt % 2 == 1:
-            f['backgroundcolor'] = 'lightyellow'
+            f['backgroundcolor'] = 'lightgrey'
         else:
             f['backgroundcolor'] = 'white'
 
