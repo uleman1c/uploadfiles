@@ -42,8 +42,8 @@ function onLoad() {
       });
 
     document.querySelector(idEl).innerHTML = curFile.name + ", " + Math.floor(startingByte / 1024).toLocaleString() + " Kb, " 
-        + Math.floor(startingByte * 100 / curFile.size) + "%, ошибок " + errorCount 
-        + ", осталось " + elapsed + " минут, " + formatter.format(curDate);
+        + Math.floor(startingByte * 100 / curFile.size) + "%, errors " + errorCount 
+        + ", elapsed " + elapsed + " minutes, " + formatter.format(curDate);
 
     if (startingByte < curFile.size) {
 
