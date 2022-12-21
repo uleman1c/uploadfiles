@@ -7,6 +7,8 @@ import requests
 
 import urllib.parse
 
+addr = 'http://localhost:8011/'
+
 # Create your views here.
 
 def files(request, slug):
@@ -25,7 +27,7 @@ def files(request, slug):
 
         if getuid != None:
 
-            res = requests.post('http://localhost:8000/ulgf/', json={'mode': 'getuid', 'filename': request.headers.get('filename'), 'ulid': slug})
+            res = requests.post(addr + 'ulgf/', json={'mode': 'getuid', 'filename': request.headers.get('filename'), 'ulid': slug})
 
             return JsonResponse(json.loads(res.text))
 
@@ -39,7 +41,7 @@ def files(request, slug):
                 destination.write(request.body)
                 destination.close()
                     
-                res = requests.post('http://localhost:8000/ulgf/', json={'mode': 'setsize', 'size': request.headers.get('size'), 'id': curUid})
+                res = requests.post(addr + 'ulgf/', json={'mode': 'setsize', 'size': request.headers.get('size'), 'id': curUid})
 
             
                 # stat = os.stat(filespath + curName)
@@ -65,7 +67,7 @@ def files(request, slug):
                         
     elif request.method == 'GET':
 
-        res = requests.get('http://localhost:8000/ul?id=' + slug)
+        res = requests.get(addr + 'ul?id=' + slug)
 
         try:
 
